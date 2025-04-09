@@ -52,7 +52,7 @@ int cartCount = 0;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 4, 66, 85),
+        backgroundColor: Color.fromARGB(255, 24, 16, 133),
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 255, 255, 255)),

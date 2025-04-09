@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bookstore/FAQPage.dart';
 import 'package:bookstore/ProfileScreen.dart';
 import 'package:bookstore/ServicesPage.dart';
-import 'WishlistPage.dart';
+import 'AboutUs.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -83,11 +83,11 @@ class AppDrawer extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => ServicesPage()));
                   }),
-                  drawerItem(Icons.favorite, "Wishlist", () {
+                  drawerItem(Icons.person, "AboutUs", () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WishlistPage()));
+                            builder: (context) => AboutUsPage()));
                   }),
                   drawerItem(Icons.exit_to_app, "Logout", () {
                     // Logout logic
@@ -114,7 +114,7 @@ class AppDrawer extends StatelessWidget {
                     children: [
                       Icon(Icons.phone, size: 18, color: Colors.black54),
                       SizedBox(width: 8),
-                      Text("0331-26987542",
+                      Text("+1 (123) 456-7890",
                           style:
                               TextStyle(fontSize: 16, color: Colors.black54)),
                     ],
@@ -125,7 +125,7 @@ class AppDrawer extends StatelessWidget {
                     children: [
                       Icon(Icons.email, size: 18, color: Colors.black54),
                       SizedBox(width: 8),
-                      Text("info@laptopharbor.pk",
+                      Text("support@laptopharbor.com",
                           style:
                               TextStyle(fontSize: 16, color: Colors.black54)),
                     ],

@@ -12,10 +12,10 @@ class FAQPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          faqItem("What types of books are available?", "We offer fiction, non-fiction, educational, and many more categories."),
-          faqItem("How can I place an order?", "Simply add books to your cart and proceed to checkout."),
+          faqItem("What types of laptops are available?", "We offer office, gaming, educational, and many more categories."),
+          faqItem("How can I place an order?", "Simply add laptops to your cart and proceed to checkout."),
           faqItem("Do you offer cash on delivery?", "Yes, we provide COD in selected locations."),
-          faqItem("Can I return or exchange a book?", "Yes, returns and exchanges are possible within 7 days."),
+          faqItem("Can I return or exchange a laptops?", "Yes, returns and exchanges are possible within 7 days."),
         ],
       ),
     );
