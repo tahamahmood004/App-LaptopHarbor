@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1063673773085",
+    "firebase_url": "https://flutterproject-872d0-default-rtdb.firebaseio.com",
+    "project_id": "flutterproject-872d0",
+    "storage_bucket": "flutterproject-872d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063673773085:android:d94e4ad5af94ec0c811af4",
+        "android_client_info": {
+          "package_name": "com.example.bookstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIN5eyFw5aTVZ27vTJ7qpnpfAysf_t4Ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063673773085:android:63f5dc55206f0480811af4",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIN5eyFw5aTVZ27vTJ7qpnpfAysf_t4Ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
