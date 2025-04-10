@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
 
@@ -11,8 +10,10 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us',
-        style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'About Us',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 24, 16, 133),
         iconTheme: IconThemeData(color: Colors.white),
@@ -25,7 +26,8 @@ class AboutUsPage extends StatelessWidget {
             // App Logo and Name
             const CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage('assets/logo.png'), // Replace with your logo
+              backgroundImage:
+                  AssetImage('assets/logo.png'), // Replace with your logo
               backgroundColor: Colors.transparent,
             ),
             const SizedBox(height: 20),
@@ -47,7 +49,7 @@ class AboutUsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            
+
             // App Description
             const Text(
               'About LaptopHarbor',
@@ -58,7 +60,7 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Text(
-              'LaptopHarbor is a comprehensive platform for buying and selling laptops. '
+              'LaptopHarbor is a comprehensive platform for buying laptops. '
               'We provide a trusted marketplace where users can find the best deals on new and refurbished laptops '
               'from various brands. Our mission is to make laptop shopping easy, transparent, and affordable for everyone.',
               textAlign: TextAlign.center,
@@ -68,7 +70,7 @@ class AboutUsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            
+
             // Team Section
             const Text(
               'Our Team',
@@ -78,7 +80,7 @@ class AboutUsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // Team Members - Replace with your actual team
             _buildTeamMember(
               context,
@@ -120,7 +122,7 @@ class AboutUsPage extends StatelessWidget {
               'https://github.com/johndoe',
             ),
             const SizedBox(height: 30),
-            
+
             // Contact Information
             const Text(
               'Contact Us',
@@ -130,13 +132,15 @@ class AboutUsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            _buildContactOption(Icons.email, 'Email', 'support@laptopharbor.com'),
+            _buildContactOption(
+                Icons.email, 'Email', 'support@laptopharbor.com'),
             const SizedBox(height: 10),
             _buildContactOption(Icons.phone, 'Phone', '+1 (123) 456-7890'),
             const SizedBox(height: 10),
-            _buildContactOption(Icons.location_on, 'Address', '123 Tech Street, Silicon Valley, CA'),
+            _buildContactOption(Icons.location_on, 'Address',
+                '123 Tech Street, Silicon Valley, CA'),
             const SizedBox(height: 30),
-            
+
             // App Version
             const Text(
               'Version 1.0.0',
@@ -151,7 +155,8 @@ class AboutUsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTeamMember(BuildContext context, String name, String role, String imagePath, String githubUrl) {
+  Widget _buildTeamMember(BuildContext context, String name, String role,
+      String imagePath, String githubUrl) {
     return GestureDetector(
       onTap: () => _launchURL(githubUrl),
       child: Card(
