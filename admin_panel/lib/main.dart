@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/category.dart';
+import 'package:myapp/feedback.dart';
 import 'package:myapp/firebase_options.dart';
 import 'package:myapp/orders.dart';
 import 'package:myapp/product.dart';
@@ -396,6 +397,16 @@ class DashboardDrawer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Orders()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.category, color: Colors.white),
+                    title: Text('orders', style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>FeedbackDashboardPage()),
                       );
                     },
                   ),

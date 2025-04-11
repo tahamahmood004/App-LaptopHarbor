@@ -50,7 +50,7 @@ void fetchProducts() async {
         title: AnimatedTextKit(
           animatedTexts: [
             TyperAnimatedText(
-              "🚚 Free Delivery on Orders Above Rs.1,999/-",
+              "🚚 Free Delivery on Orders Above \$29,999/-",
               textStyle: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,

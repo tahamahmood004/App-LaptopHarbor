@@ -89,6 +89,7 @@ class AppDrawer extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => AboutUsPage()));
                   }),
+               
                   drawerItem(Icons.exit_to_app, "Logout", () {
                     // Logout logic
                   }),

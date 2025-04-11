@@ -102,7 +102,7 @@ class _OrdersState extends State<Orders> {
                             newValue!; // Update status within the dialog
                       });
                     },
-                    items: ['new', 'pending', 'delivered']
+                    items: ['pending', 'order confirmed', 'delivered']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

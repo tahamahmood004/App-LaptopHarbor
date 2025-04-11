@@ -8,6 +8,7 @@ import 'package:bookstore/allproducts_page.dart';
 import 'package:bookstore/cart.dart';
 import 'package:bookstore/categories.dart';
 import 'package:bookstore/drawer.dart';
+import 'package:bookstore/feedback.dart';
 import 'package:bookstore/loginscreen.dart';
 import 'package:bookstore/logpage.dart';
 import 'package:bookstore/main.dart';
@@ -400,7 +401,21 @@ class _homepageState extends State<homepage> with WidgetsBindingObserver {
                   Navigator.pushReplacementNamed(context, '/login');
                 },
               ),
+               IconButton(
+                  icon: Icon(Icons.feedback, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FeedbackDemo()),
+                    ).then((value) {
+                     
+                    });
+                  },
+                ),
           ],
+
+
+          
           flexibleSpace: Center(
             child: Text(
               'Laptopharbor',
