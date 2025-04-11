@@ -1,8 +1,6 @@
-
 import 'package:bookstore/home.dart';
 
 import 'package:flutter/material.dart';
-
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -26,14 +24,17 @@ class _SplashState extends State<Splash> {
     if (mounted) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>homepage(username: '')), // Navigate when data is ready
+        MaterialPageRoute(
+            builder: (context) =>
+                homepage(username: '')), // Navigate when data is ready
       );
     }
   }
 
   Future<void> fetchData() async {
     // Simulating actual data fetching (e.g., API call, database query)
-    await Future.delayed(Duration(seconds: 4)); // Example: Data takes 6 sec to load
+    await Future.delayed(
+        Duration(seconds: 4)); // Example: Data takes 6 sec to load
     setState(() {
       _isLoading = false; // Mark data as loaded
     });
@@ -50,7 +51,7 @@ class _SplashState extends State<Splash> {
             child: Column(
               children: [
                 Image.asset(
-                  "assets/images/logo.png",
+                  "assets/images/logo3.png",
                   width: 500,
                   height: 500,
                 ),
@@ -58,7 +59,8 @@ class _SplashState extends State<Splash> {
                 if (_isLoading) // Show progress indicator only while loading
                   CircularProgressIndicator(
                     strokeWidth: 6,
-                    valueColor: AlwaysStoppedAnimation<Color>(const Color.fromARGB(255, 128, 78, 105)),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        const Color.fromARGB(255, 24, 16, 133)),
                   ),
               ],
             ),

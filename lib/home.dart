@@ -446,7 +446,7 @@ class _homepageState extends State<homepage> with WidgetsBindingObserver {
                                 bottomLeft: Radius.circular(30),
                                 bottomRight: Radius.circular(30),
                               ),
-                              color: Color.fromARGB(255, 127, 122, 185),
+                              color: Color.fromARGB(255, 38, 30, 151),
                             ),
                             child: Center(
                               child: AnimatedTextKit(
