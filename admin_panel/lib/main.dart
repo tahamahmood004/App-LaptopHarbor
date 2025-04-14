@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
           titleTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
+     
       home: AdminScreen(),
     );
   }
@@ -359,9 +360,9 @@ class DashboardDrawer extends StatelessWidget {
               ),
               accountName: Text('Admin', style: TextStyle(color: Colors.white)),
               accountEmail: Text('Admin@gmail.com', style: TextStyle(color: Colors.white)),
-              // currentAccountPicture: CircleAvatar(
-              //   backgroundImage: NetworkImage('https://res.cloudinary.com/dtl2b3rrl/image/upload/v1737951506/samples/smile.jpg'),
-              // ),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage('https://res.cloudinary.com/dtl2b3rrl/image/upload/v1737951506/samples/smile.jpg'),
+              ),
             ),
             Expanded(
               child: ListView(
@@ -401,12 +402,12 @@ class DashboardDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.category, color: Colors.white),
-                    title: Text('orders', style: TextStyle(color: Colors.white)),
+                    leading: Icon(Icons.feedback, color: Colors.white),
+                    title: Text('feedback', style: TextStyle(color: Colors.white)),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) =>FeedbackDashboardPage()),
+                        MaterialPageRoute(builder: (context) =>FeedbackDemo()),
                       );
                     },
                   ),

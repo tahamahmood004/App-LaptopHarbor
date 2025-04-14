@@ -1,14 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FeedbackStorage {
-  static final List<String> feedbackList = [];
+class FeedbackDemo extends StatefulWidget {
+  @override
+  _FeedbackDemoState createState() => _FeedbackDemoState();
 }
 
-class HomePage extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-  String _feedback = '';
+class _FeedbackDemoState extends State<FeedbackDemo> {
+  final List<Map<String, dynamic>> _feedbackList = [];
+  final TextEditingController _feedbackController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  void Feedback(BuildContext context) {
+  @override
+  void initState() {
+    super.initState();
+    _loadFeedbacks(); // Load feedback from Firebase on startup
+  }
+
+  void _loadFeedbacks() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('feedbacks')
+        .orderBy('timestamp', descending: true)
+        .get();
+
+    final feedbacks = snapshot.docs.map((doc) => {
+          'id': doc.id,
+          'text': doc['text'],
+          'email': doc['email'],
+        }).toList();
+
+    setState(() {
+      _feedbackList.clear();
+      _feedbackList.addAll(feedbacks);
+    });
+  }
+
+  void _showFeedbackDialog(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    _feedbackController.clear();
+    _emailController.clear();
+
     showDialog(
       context: context,
       builder: (context) {
@@ -16,40 +47,77 @@ class HomePage extends StatelessWidget {
           title: Text('Feedback Form'),
           content: Form(
             key: _formKey,
-            child: TextFormField(
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: 'Enter your feedback here...',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Please enter some feedback';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _feedback = value ?? '';
-              },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your email',
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: _feedbackController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your feedback here...',
+                    labelText: 'Feedback',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some feedback';
+                    }
+                    return null;
+                  },
+                ),
+              ],
             ),
           ),
           actions: [
             TextButton(
-              child: Text('Cancel'),
               onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
             ),
             ElevatedButton(
-              child: Text('Submit'),
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  FeedbackStorage.feedbackList.add(_feedback);
+                  String feedback = _feedbackController.text;
+                  String email = _emailController.text;
+                  final docRef = await FirebaseFirestore.instance
+                      .collection('feedbacks')
+                      .add({
+                    'text': feedback,
+                    'email': email,
+                    'timestamp': Timestamp.now(),
+                  });
+                  setState(() {
+                    _feedbackList.insert(0, {
+                      'id': docRef.id,
+                      'text': feedback,
+                      'email': email,
+                    });
+                  });
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Thanks for your feedback!')),
+                    SnackBar(content: Text('Thank you for your feedback!')),
                   );
                 }
               },
+              child: Text('Submit'),
             ),
           ],
         );
@@ -57,51 +125,70 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _goToAdminDashboard(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FeedbackDashboardPage()),
+  void _deleteFeedback(String docId, int index) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete Feedback'),
+        content: Text('Are you sure you want to delete this feedback?',style: TextStyle(color: Colors.black),),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text('Delete'),
+          ),
+        ],
+      ),
     );
+
+    if (confirmed == true) {
+      await FirebaseFirestore.instance.collection('feedbacks').doc(docId).delete();
+      setState(() {
+        _feedbackList.removeAt(index);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Feedback deleted successfully.')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Feedback Home'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.admin_panel_settings),
-            onPressed: () => _goToAdminDashboard(context),
-          ),
-        ],
+        title: Text('Admin Feedback Panel', style: TextStyle(color: Colors.white)),
+        toolbarHeight: 40.0,
+        backgroundColor: Color.fromARGB(255, 24, 16, 133),
+        iconTheme: IconThemeData(color: Colors.white),
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.feedback, color: Colors.white),
+        //     onPressed: () => _showFeedbackDialog(context),
+        //     tooltip: 'Give Feedback',
+        //   ),
+        // ],
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('Give Feedback'),
-          onPressed: () => Feedback(context),
-        ),
-      ),
-    );
-  }
-}
-
-class FeedbackDashboardPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final feedbacks = FeedbackStorage.feedbackList;
-
-    return Scaffold(
-      appBar: AppBar(title: Text('Admin Dashboard')),
-      body: feedbacks.isEmpty
-          ? Center(child: Text('No feedback yet!'))
+      body: _feedbackList.isEmpty
+          ? Center(child: Text('No feedback yet.'))
           : ListView.builder(
-              itemCount: feedbacks.length,
+              padding: EdgeInsets.all(8.0),
+              itemCount: _feedbackList.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Icon(Icons.feedback),
-                  title: Text('Feedback #${index + 1}'),
-                  subtitle: Text(feedbacks[index]),
+                final feedback = _feedbackList[index];
+                return Card(
+                  elevation: 3,
+                  margin: EdgeInsets.symmetric(vertical: 6),
+                  child: ListTile(
+                    title: Text(feedback['text']),
+                    subtitle: Text('From: ${feedback['email']}'),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _deleteFeedback(feedback['id'], index),
+                    ),
+                  ),
                 );
               },
             ),
