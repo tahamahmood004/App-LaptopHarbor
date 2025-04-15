@@ -37,7 +37,7 @@ class AppDrawer extends StatelessWidget {
                       CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(
-                            'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=150&h=150&fit=crop&crop=faces'),
+                            'https://cdn-icons-png.flaticon.com/512/163/163850.png'),
                       ),
                       SizedBox(width: 10),
                       Text(
@@ -84,12 +84,9 @@ class AppDrawer extends StatelessWidget {
                             builder: (context) => ServicesPage()));
                   }),
                   drawerItem(Icons.person, "AboutUs", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AboutUsPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AboutUsPage()));
                   }),
-               
                   drawerItem(Icons.exit_to_app, "Logout", () {
                     // Logout logic
                   }),
