@@ -10,44 +10,44 @@ class ProductDetailPage extends StatefulWidget {
   final Map<String, dynamic> product;
 
   ProductDetailPage({required dynamic product})
-      : product = (product is QueryDocumentSnapshot) ? product.data() as Map<String, dynamic> : product;
+      : product = (product is QueryDocumentSnapshot)
+            ? product.data() as Map<String, dynamic>
+            : product;
 
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
-
-
 }
-
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int quantity = 1;
 
-int cartCount = 0;
+  int cartCount = 0;
 
   void addtocart(Map<String, dynamic> product) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-  if (isLoggedIn) {
-    List<String> cartList = prefs.getStringList('cart') ?? [];
-    cartList.add(jsonEncode(product));
-    
-    await prefs.setStringList('cart', cartList);
+    if (isLoggedIn) {
+      List<String> cartList = prefs.getStringList('cart') ?? [];
+      cartList.add(jsonEncode(product));
 
-    setState(() {
-      cartCount = cartList.length; // Update badge count
-    });
+      await prefs.setStringList('cart', cartList);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("${product['b_name']} added to cart!"),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  } else {
-    Navigator.pushReplacementNamed(context, '/login');
+      setState(() {
+        cartCount = cartList.length; // Update badge count
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("${product['b_name']} added to cart!"),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +55,8 @@ int cartCount = 0;
         backgroundColor: Color.fromARGB(255, 24, 16, 133),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 255, 255, 255)),
+          icon: Icon(Icons.arrow_back,
+              color: const Color.fromARGB(255, 255, 255, 255)),
           onPressed: () => Navigator.pop(context),
         ),
         title: AnimatedTextKit(
@@ -140,8 +141,6 @@ int cartCount = 0;
 //   ),
 // ),
 
-
-
               SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +156,10 @@ int cartCount = 0;
                         fit: BoxFit.cover,
                       ),
                       boxShadow: [
-                        BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(2, 2))
+                        BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 8,
+                            offset: Offset(2, 2))
                       ],
                     ),
                   ),
@@ -168,17 +170,24 @@ int cartCount = 0;
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Book Name",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black54),
+                          "Product Name",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54),
                         ),
                         Text(
                           widget.product['b_name'],
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10),
                         Text(
                           "Price",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black54),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54),
                         ),
                         Text(
                           "Rs. ${(double.tryParse(widget.product['price'].toString()) ?? 0.0).toStringAsFixed(0)}",
@@ -202,7 +211,8 @@ int cartCount = 0;
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 quantity.toString(),
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                             _quantityButton(Icons.add, () {
@@ -220,8 +230,11 @@ int cartCount = 0;
               SizedBox(height: 10), // 🔹 Space Between Details and Description
               // Description
               Text(
-                "Book Description",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                "Product Description",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
               SizedBox(height: 5),
               Text(
@@ -256,81 +269,93 @@ int cartCount = 0;
                   height: 45,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:  Color.fromARGB(255, 24, 16, 133),
+                      backgroundColor: Color.fromARGB(255, 24, 16, 133),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
                     onPressed: () {
                       addtocart(widget.product);
-                      
                     },
                     child: Text(
                       "ADD TO CART",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold ,color: Colors.white),
-                      
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ),
                 ),
               ),
               SizedBox(height: 20),
-               Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-              color: Colors.grey[200], // Light gray background
-              child: Column(
-          children: [
-            /// 📌 Social Media Icons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.facebook, color:Color.fromARGB(255, 24, 16, 133),),
-                  onPressed: () {}, // Add social links
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                color: Colors.grey[200], // Light gray background
+                child: Column(
+                  children: [
+                    /// 📌 Social Media Icons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.facebook,
+                            color: Color.fromARGB(255, 24, 16, 133),
+                          ),
+                          onPressed: () {}, // Add social links
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.twitter,
+                            color: Color.fromARGB(255, 24, 16, 133),
+                          ),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.instagram,
+                            color: Color.fromARGB(255, 24, 16, 133),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 10),
+
+                    /// 📌 Divider Line
+                    Divider(color: Colors.grey, thickness: 1),
+
+                    SizedBox(height: 10),
+
+                    /// 📌 About & Contact Links
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text("About Us",
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                        Text("|", style: TextStyle(color: Colors.grey)),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text("Contact",
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 5),
+
+                    /// 📌 Copyright Text
+                    Text(
+                      "© 2025 LaptopHarbor. All Rights Reserved.",
+                      style: TextStyle(color: Colors.black54, fontSize: 12),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.twitter, color: Color.fromARGB(255, 24, 16, 133),),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.instagram, color:Color.fromARGB(255, 24, 16, 133),  ),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-           
-            SizedBox(height: 10),
-           
-            /// 📌 Divider Line
-            Divider(color: Colors.grey, thickness: 1),
-          
-            SizedBox(height: 10),
-          
-            /// 📌 About & Contact Links
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text("About Us", style: TextStyle(color: Colors.black)),
-                ),
-                Text("|", style: TextStyle(color: Colors.grey)),
-                TextButton(
-                  onPressed: () {},
-                  child: Text("Contact", style: TextStyle(color: Colors.black)),
-                ),
-              ],
-            ),
-          
-            SizedBox(height: 5),
-          
-            /// 📌 Copyright Text
-            Text(
-              "© 2025 Book Store. All Rights Reserved.",
-              style: TextStyle(color: Colors.black54, fontSize: 12),
-            ),
-          ],
               ),
-            ),
             ],
           ),
         ),
@@ -350,9 +375,6 @@ int cartCount = 0;
         padding: EdgeInsets.all(8),
         child: Icon(icon, size: 24, color: Colors.black),
       ),
-      
     );
-   
   }
-  
 }
