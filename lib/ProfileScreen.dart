@@ -74,17 +74,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return Center(child: Text("User not found"));
                       }
 
-                      var userData = snapshot.data!.data() as Map<String, dynamic>;
+                      var userData =
+                          snapshot.data!.data() as Map<String, dynamic>;
                       nameController.text = userData['name'] ?? "No Name";
                       emailController.text = userData['email'] ?? "No Email";
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Profile Details", 
+                          Text(
+                            "Profile Details",
                             style: TextStyle(
-                              fontSize: 22, 
-                              fontWeight: FontWeight.bold, 
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 24, 16, 133),
                             ),
                           ),
@@ -97,7 +99,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 25),
 
                           // 🔹 Save Button
-                          _buildButton("Save Changes", Color.fromARGB(255, 24, 16, 133), () {
+                          _buildButton(
+                              "Save Changes", Color.fromARGB(255, 24, 16, 133),
+                              () {
                             if (_formKey.currentState!.validate()) {
                               _updateUser(currentUser!.uid);
                             }
@@ -119,8 +123,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 30),
 
               // 🔹 Order Details Section
-              Text("Your Orders",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 24, 16, 133)),
+              Text(
+                "Your Orders",
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 24, 16, 133)),
               ),
               SizedBox(height: 10),
 
@@ -144,30 +152,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: orders.length,
                     itemBuilder: (context, index) {
-                      var orderData = orders[index].data() as Map<String, dynamic>;
+                      var orderData =
+                          orders[index].data() as Map<String, dynamic>;
                       String userId = orderData['userId'];
 
                       return FutureBuilder<DocumentSnapshot>(
-                        future: FirebaseFirestore.instance.collection('users').doc(userId).get(),
+                        future: FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(userId)
+                            .get(),
                         builder: (context, userSnapshot) {
-                          if (userSnapshot.connectionState == ConnectionState.waiting) {
+                          if (userSnapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return Center(child: CircularProgressIndicator());
                           }
-                          if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
+                          if (!userSnapshot.hasData ||
+                              !userSnapshot.data!.exists) {
                             return Center(child: Text("User not found"));
                           }
 
-                          var userData = userSnapshot.data!.data() as Map<String, dynamic>;
-                          String userName = userData['b_name'] ?? "bookName";
+                          var userData =
+                              userSnapshot.data!.data() as Map<String, dynamic>;
+                          String userName = userData['b_name'] ?? "Product";
 
                           return Card(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
                             child: ListTile(
-                              leading: Icon(Icons.shopping_cart, color: Colors.blue),
+                              leading:
+                                  Icon(Icons.shopping_cart, color: Colors.blue),
                               title: Text(userName),
-                              subtitle: Text("totalAmount: \$${orderData['totalAmount']}\nStatus: ${orderData['status']}"),
+                              subtitle: Text(
+                                  "totalAmount: \$${orderData['totalAmount']}\nStatus: ${orderData['status']}"),
                             ),
                           );
                         },
@@ -216,7 +234,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         labelText: "Password",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         suffixIcon: IconButton(
-          icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+          icon:
+              Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
           onPressed: () {
             setState(() {
               _obscurePassword = !_obscurePassword;
@@ -238,7 +257,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: color,
           padding: EdgeInsets.symmetric(vertical: 15),
           textStyle: TextStyle(fontSize: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
     );
