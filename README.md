@@ -1,7 +1,7 @@
 
 # LaptopHarbor 🚀
 
-![LaptopHarbor Banner]([[https://via.placeholder.com/1200x400?text=LaptopHarbor+E-Commerce+App](https://github.com/tahamahmood004/App-LaptopHarbor/blob/main/assets/images/screenshot.png)](https://github.com/tahamahmood004/App-LaptopHarbor/blob/main/assets/images/screenshot.png?raw=true))
+![LaptopHarbor Banner](https://raw.githubusercontent.com/tahamahmood004/App-LaptopHarbor/refs/heads/main/assets/images/screenshot.png)
 
 A Flutter-powered e-commerce platform for browsing and purchasing laptops/accessories with Firebase backend.
 
@@ -77,8 +77,8 @@ final products = await FirebaseFirestore.instance
 ## Screenshots 📱
 | Feature          | Preview                      |
 |------------------|------------------------------|
-| Home Screen      | ![Home]([[https://via.placeholder.com/1200x400?text=LaptopHarbor+E-Commerce+App](https://github.com/tahamahmood004/App-LaptopHarbor/blob/main/assets/images/screenshot.png)](https://github.com/tahamahmood004/App-LaptopHarbor/blob/main/assets/images/screenshot.png?raw=true))     |
-| Product Details  | ![Product Details]([[placeholder.png](https://github.com/tahamahmood004/App-LaptopHarbor/blob/main/assets/images/product_details.png)](https://github.com/tahamahmood004/App-LaptopHarbor/blob/main/assets/images/product_details.png?raw=true))  | 
+| Home Screen      | ![Home](https://raw.githubusercontent.com/tahamahmood004/App-LaptopHarbor/refs/heads/main/assets/images/screenshot.png)     |
+| Product Details  | ![Product Details](https://raw.githubusercontent.com/tahamahmood004/App-LaptopHarbor/refs/heads/main/assets/images/product_details.png)  | 
 
 ## Contributing 🤝
 1. Fork the project
