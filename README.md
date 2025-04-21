@@ -11,7 +11,7 @@ A Flutter-powered e-commerce platform for browsing and purchasing laptops/access
 - **Shopping Cart**: Add/remove items
 - **Order Tracking**: Real-time updates
 - **Wishlist**: Save favorites
-- **Admin Panel**: Manage products (future)
+- **Admin Panel**: Manage products
 
 ## Tech Stack 💻
 | Component       | Technology               |
